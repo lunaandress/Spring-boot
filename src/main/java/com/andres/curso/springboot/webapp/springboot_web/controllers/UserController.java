@@ -1,12 +1,13 @@
 package com.andres.curso.springboot.webapp.springboot_web.controllers;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.andres.curso.springboot.webapp.springboot_web.models.User;
 
@@ -16,6 +17,8 @@ public class UserController {
 
     //METODO MODEL
 
+
+    //path
     @GetMapping("/details")
     public String details (Model model) {
 
@@ -28,27 +31,22 @@ public class UserController {
     }
 
 
+    //path
     @GetMapping("/list")
     public String list(ModelMap model) {
-
-        User us1 = new User("paco ","salas","miosesfreddy123@gmail.com");
-        User us2 = new User("paquita ","salas");
-        User us3 = new User("pacoyo ","salas");
-        User us4 = new User("pacolines ","salas");
-        User us5 = new User("pacondria ","salas");
-
-        List<User> users = new ArrayList<>();
-        
-            users.add(us1);
-            users.add(us2);
-            users.add(us3);
-            users.add(us4);
-            users.add(us5);
-
-        model.addAttribute("users", users);
         model.addAttribute("title", "listado de usarios");
-
         return "list";
+    }
+
+    @ModelAttribute("users")
+    public List<User>usuarioModel(){
+
+    List<User> users = Arrays.asList(
+        new User("andres" , "luna"),
+        new User("andras" , "luna"),
+        new User("andrea" , "luna")
+    );
+        return users ;
     }
     
 
