@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.andres.curso.springboot.webapp.springboot_web.models.ParaMiDto;
 import com.andres.curso.springboot.webapp.springboot_web.models.ParamDto;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 
@@ -38,6 +41,23 @@ public class RequestParamsController {
     }
     
 // http://localhost:8080/api/params/bar?text=hola&code=123456
+
+
+
+
+@GetMapping("/request")
+public ParaMiDto request(HttpServletRequest request) {
+
+
+    ParaMiDto paraMiDto  = new ParaMiDto();
+    paraMiDto.setCode(Integer.parseInt(request.getParameter("code")));
+    paraMiDto.setMensaje(request.getParameter("mensaje"));
+    return paraMiDto;
+}
+
+
+//http://localhost:8080/api/params/request?code=123456789&mensaje=hola%20futuro%20yo
+
 
 
 }
