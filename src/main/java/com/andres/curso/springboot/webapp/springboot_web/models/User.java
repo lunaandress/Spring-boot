@@ -9,6 +9,14 @@ public class User {
 
 
     //constructor
+
+
+    public User() {
+        // constructor vacío requerido por Jackson
+    }
+
+
+
     public User(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;

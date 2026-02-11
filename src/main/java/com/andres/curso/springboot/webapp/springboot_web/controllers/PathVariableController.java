@@ -5,10 +5,14 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.andres.curso.springboot.webapp.springboot_web.models.ParamDto;
+import com.andres.curso.springboot.webapp.springboot_web.models.User;
+
 
 
 
@@ -37,12 +41,30 @@ public Map<String, Object> getMethodName(@PathVariable String product, @PathVari
     json.put("id", id);
 
     return json;
-}
 
-//http://localhost:8080/api/var/mix/telefono/003
-
+    //http://localhost:8080/api/var/mix/telefono/003
 
 }
+
+
+// Api Rest enviar Json petición POST
+
+    @PostMapping("/create")
+    public User creatUser(@RequestBody User user) {
+    
+        return user;
+    }
+    
+
+
+
+
+
+
+}
+
+
+
 
 
 
