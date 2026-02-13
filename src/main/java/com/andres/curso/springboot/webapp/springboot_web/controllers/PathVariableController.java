@@ -1,6 +1,7 @@
 package com.andres.curso.springboot.webapp.springboot_web.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -14,85 +15,109 @@ import org.springframework.web.bind.annotation.RestController;
 import com.andres.curso.springboot.webapp.springboot_web.models.ParamDto;
 import com.andres.curso.springboot.webapp.springboot_web.models.User;
 
-
-
-
-
 @RestController
 @RequestMapping("/api/var")
 public class PathVariableController {
 
-
-    //INYECTAMOS LO DEL PROPETIES A LAS VARIBLES como atributos 
+    // ===============================
+    // INYECCIÓN DESDE values.properties
+    // ===============================
 
     @Value("${config.name}")
     private String name;
+
     @Value("${config.code}")
-   // private String code;
-   //@Value("${config.message}")
+    private Integer code;
+
+    @Value("${config.message}")
     private String message;
+
     @Value("${config.listOfValues}")
     private String[] listOfValues;
 
-    //METODOS CONTROLADORES
+    @Value("#{'${config.listOfValues}'.split(',')}")
+    private List<String> valuesString;
 
-//Anotación @PathVariable
+    @Value("#{${config.valuesMap}}")
+    private Map<String ,Object>valuesMap;
 
-@GetMapping("/baz/{mensaje}")
-public ParamDto baz(@PathVariable String mensaje) {
+    // ===============================
+    // PATH VARIABLES de producto
+    // ===============================
 
-    ParamDto paramDto = new ParamDto();
-    paramDto.setMensaje(mensaje);
-    return paramDto;
-}
-//http://localhost:8080/api/var/baz/mesa
+    @Value("#{${config.valuesMap}['product']}")
+    private String product;
 
-@GetMapping("/mix/{product}/{id}")
-public Map<String, Object> getMethodName(@PathVariable String product, @PathVariable long id) {
-    Map<String, Object > json  = new HashMap<>();
-    json.put("product", product);
-    json.put("id", id);
+    @Value("#{${config.valuesMap}['descripcion']}")
+    private String descripcion;
 
-    return json;
+    @Value("#{${config.valuesMap}['price']}")
+    private String price;
 
-    //http://localhost:8080/api/var/mix/telefono/003
+    
 
-}
+    // ===============================
+    // PATH VARIABLES
+    // ===============================
 
+    @GetMapping("/baz/{mensaje}")
+    public ParamDto baz(@PathVariable String mensaje) {
 
-// Api Rest enviar Json petición POST
+        ParamDto paramDto = new ParamDto();
+        paramDto.setMensaje(mensaje);
+        return paramDto;
+    }
+
+    // http://localhost:8080/api/var/baz/mesa
+
+    @GetMapping("/mix/{product}/{id}")
+    public Map<String, Object> mix(
+            @PathVariable String product,
+            @PathVariable long id) {
+
+        Map<String, Object> json = new HashMap<>();
+        json.put("product", product);
+        json.put("id", id);
+
+        return json;
+    }
+
+    // http://localhost:8080/api/var/mix/telefono/3
+
+    // ===============================
+    // POST JSON
+    // ===============================
 
     @PostMapping("/create")
-    public User creatUser(@RequestBody User user) {
-    
+    public User createUser(@RequestBody User user) {
         return user;
     }
-    
 
-    //Inyectar valores usando la anotación @Value
-        //INYECTAMOS LO DEL PROPETIES A LAS VARIBLES como  parametros
+    // ===============================
+    // LEER VALUES.PROPERTIES
+    // ===============================
+
     @GetMapping("/values")
-    public Map<String ,Object> values(@Value("${config.message}") String code) {
+    public Map<String, Object> values(@Value("${config.message}") String message   ) {
 
-        Map<String,Object> json =new HashMap<>();
+        Map<String, Object> json = new HashMap<>();
+
         json.put("name", name);
         json.put("code", code);
         json.put("message", message);
         json.put("listOfValues", listOfValues);
+        json.put("valuesMap", valuesMap);
+        json.put("product", product);
+        json.put("price", price);
 
-        return json ;
+
+        return json;
     }
-    
-    
+
+    // http://localhost:8080/api/var/values
+
+
+
 
 
 }
-
-
-
-
-
-
-
-
-
