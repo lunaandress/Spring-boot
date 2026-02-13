@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -53,6 +55,10 @@ public class PathVariableController {
 
     @Value("#{${config.valuesMap}['price']}")
     private String price;
+
+    // Objeto Environment de Spring para leer configuraciones
+    @Autowired
+    private Environment environment;
 
     
 
@@ -105,6 +111,8 @@ public class PathVariableController {
         json.put("name", name);
         json.put("code", code);
         json.put("message", message);
+        json.put("message2", environment.getProperty("config.message"));
+        json.put("code2", environment.getProperty("config.code"));
         json.put("listOfValues", listOfValues);
         json.put("valuesMap", valuesMap);
         json.put("product", product);
