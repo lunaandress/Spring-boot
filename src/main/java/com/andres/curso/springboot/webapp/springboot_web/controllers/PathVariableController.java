@@ -69,13 +69,6 @@ public Map<String, Object> getMethodName(@PathVariable String product, @PathVari
     }
     
 
-
-
-
-
-
-
-
     //Inyectar valores usando la anotación @Value
         //INYECTAMOS LO DEL PROPETIES A LAS VARIBLES como  parametros
     @GetMapping("/values")
