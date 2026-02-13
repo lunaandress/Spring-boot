@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySources;
 @Configuration
 @PropertySources({
 
-    @PropertySource("classpath:valuesConfig")
+    @PropertySource("classpath:values.properties")
 })
 
 public class valuesConfig {
